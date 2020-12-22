@@ -1,0 +1,102 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`it should render correctly  1`] = `
+<styled.div>
+  <select>
+    <option
+      key="0"
+      value="1"
+    >
+      val 1
+    </option>
+    <option
+      key="1"
+      value="2"
+    >
+      val 1
+    </option>
+    <option
+      key="2"
+      value="3"
+    >
+      val 1
+    </option>
+    <option
+      key="3"
+      value="4"
+    >
+      val 1
+    </option>
+  </select>
+  <styled.div />
+  <styled.div />
+</styled.div>
+`;
+
+exports[`it should render correctly 1`] = `
+<styled.div>
+  <select
+    className="test-select"
+  >
+    <option
+      key="0"
+      value="1"
+    >
+      val 1
+    </option>
+    <option
+      key="1"
+      value="2"
+    >
+      val 2
+    </option>
+    <option
+      key="2"
+      value="3"
+    >
+      val 3
+    </option>
+    <option
+      key="3"
+      value="4"
+    >
+      val 4
+    </option>
+  </select>
+  <styled.div />
+  <styled.div />
+</styled.div>
+`;
+
+exports[`it should render correctly when recording is not active 1`] = `
+<styled.div>
+  <select>
+    <option
+      key="0"
+      value="1"
+    >
+      val 1
+    </option>
+    <option
+      key="1"
+      value="2"
+    >
+      val 1
+    </option>
+    <option
+      key="2"
+      value="3"
+    >
+      val 1
+    </option>
+    <option
+      key="3"
+      value="4"
+    >
+      val 1
+    </option>
+  </select>
+  <styled.div />
+  <styled.div />
+</styled.div>
+`;

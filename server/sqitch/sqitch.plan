@@ -1,0 +1,15 @@
+%syntax-version=1.0.0
+%project=dashboard
+
+appschema 2020-11-06T17:25:01Z Lazar F <marge@example.com> # Add schema for all dashboard  objects.
+extension 2020-11-09T10:43:59Z Lazar F <marge@example.com> # Extension for UUID
+table_regions 2020-11-09T12:22:30Z Lazar F <marge@example.com> # regions table
+table_platforms 2020-11-09T12:24:31Z Lazar F <marge@example.com> # platforms table
+table_client 2020-11-09T15:07:47Z Lazar F <marge@example.com> # Table client
+scans [appschema] 2020-11-09T10:35:37Z Lazar F <marge@example.com> # Creates table to track our scans
+table_page 2020-11-09T14:14:09Z Lazar F <marge@example.com> # Page table
+table_section 2020-11-09T14:37:16Z Lazar F <marge@example.com> # Table section
+table_spots 2020-11-09T14:48:53Z Lazar F <marge@example.com> # Table spots
+users_table 2020-11-09T15:14:53Z Lazar F <marge@example.com> # Users table
+spot_statistics 2020-11-09T15:38:48Z Lazar F <marge@example.com> # Spot statistics table
+insertDataToSpotStatistics 2020-11-10T13:28:18Z Lazar F <marge@example.com> # Insert data to spot statistics table

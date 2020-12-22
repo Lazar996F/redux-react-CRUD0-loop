@@ -1,0 +1,3790 @@
+type Client implements Node {
+  """
+  A globally unique identifier. Can be used in various places throughout the system to identify this single value.
+  """
+  nodeId: ID!
+  id: UUID!
+  name: String
+  logoUrl: String
+
+  """Reads and enables pagination through a set of `Scan`."""
+  scansByClientId(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `Scan`."""
+    orderBy: [ScansOrderBy!] = [PRIMARY_KEY_ASC]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: ScanCondition
+  ): ScansConnection!
+
+  """Reads and enables pagination through a set of `User`."""
+  usersByClientId(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `User`."""
+    orderBy: [UsersOrderBy!] = [PRIMARY_KEY_ASC]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: UserCondition
+  ): UsersConnection!
+
+  """Reads and enables pagination through a set of `SpotStatistic`."""
+  spotStatisticsByClientId(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `SpotStatistic`."""
+    orderBy: [SpotStatisticsOrderBy!] = [PRIMARY_KEY_ASC]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: SpotStatisticCondition
+  ): SpotStatisticsConnection!
+}
+
+"""
+A condition to be used against `Client` object types. All fields are tested for equality and combined with a logical ‘and.’
+"""
+input ClientCondition {
+  """Checks for equality with the object’s `id` field."""
+  id: UUID
+
+  """Checks for equality with the object’s `name` field."""
+  name: String
+
+  """Checks for equality with the object’s `logoUrl` field."""
+  logoUrl: String
+}
+
+"""An input for mutations affecting `Client`"""
+input ClientInput {
+  id: UUID
+  name: String
+  logoUrl: String
+}
+
+"""
+Represents an update to a `Client`. Fields that are set will be updated.
+"""
+input ClientPatch {
+  id: UUID
+  name: String
+  logoUrl: String
+}
+
+"""A connection to a list of `Client` values."""
+type ClientsConnection {
+  """A list of `Client` objects."""
+  nodes: [Client]!
+
+  """
+  A list of edges which contains the `Client` and cursor to aid in pagination.
+  """
+  edges: [ClientsEdge!]!
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """The count of *all* `Client` you could get from the connection."""
+  totalCount: Int!
+}
+
+"""A `Client` edge in the connection."""
+type ClientsEdge {
+  """A cursor for use in pagination."""
+  cursor: Cursor
+
+  """The `Client` at the end of the edge."""
+  node: Client
+}
+
+"""Methods to use when ordering `Client`."""
+enum ClientsOrderBy {
+  NATURAL
+  ID_ASC
+  ID_DESC
+  NAME_ASC
+  NAME_DESC
+  LOGO_URL_ASC
+  LOGO_URL_DESC
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+}
+
+"""All input for the create `Client` mutation."""
+input CreateClientInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """The `Client` to be created by this mutation."""
+  client: ClientInput!
+}
+
+"""The output of our create `Client` mutation."""
+type CreateClientPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `Client` that was created by this mutation."""
+  client: Client
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """An edge for our `Client`. May be used by Relay 1."""
+  clientEdge(
+    """The method to use when ordering `Client`."""
+    orderBy: [ClientsOrderBy!] = [PRIMARY_KEY_ASC]
+  ): ClientsEdge
+}
+
+"""All input for the create `Page` mutation."""
+input CreatePageInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """The `Page` to be created by this mutation."""
+  page: PageInput!
+}
+
+"""The output of our create `Page` mutation."""
+type CreatePagePayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `Page` that was created by this mutation."""
+  page: Page
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """Reads a single `Scan` that is related to this `Page`."""
+  scanByScanId: Scan
+
+  """An edge for our `Page`. May be used by Relay 1."""
+  pageEdge(
+    """The method to use when ordering `Page`."""
+    orderBy: [PagesOrderBy!] = [PRIMARY_KEY_ASC]
+  ): PagesEdge
+}
+
+"""All input for the create `Platform` mutation."""
+input CreatePlatformInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """The `Platform` to be created by this mutation."""
+  platform: PlatformInput!
+}
+
+"""The output of our create `Platform` mutation."""
+type CreatePlatformPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `Platform` that was created by this mutation."""
+  platform: Platform
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """Reads a single `Region` that is related to this `Platform`."""
+  regionByTerritoryId: Region
+
+  """An edge for our `Platform`. May be used by Relay 1."""
+  platformEdge(
+    """The method to use when ordering `Platform`."""
+    orderBy: [PlatformsOrderBy!] = [PRIMARY_KEY_ASC]
+  ): PlatformsEdge
+}
+
+"""All input for the create `Region` mutation."""
+input CreateRegionInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """The `Region` to be created by this mutation."""
+  region: RegionInput!
+}
+
+"""The output of our create `Region` mutation."""
+type CreateRegionPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `Region` that was created by this mutation."""
+  region: Region
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """An edge for our `Region`. May be used by Relay 1."""
+  regionEdge(
+    """The method to use when ordering `Region`."""
+    orderBy: [RegionsOrderBy!] = [PRIMARY_KEY_ASC]
+  ): RegionsEdge
+}
+
+"""All input for the create `Scan` mutation."""
+input CreateScanInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """The `Scan` to be created by this mutation."""
+  scan: ScanInput!
+}
+
+"""The output of our create `Scan` mutation."""
+type CreateScanPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `Scan` that was created by this mutation."""
+  scan: Scan
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """Reads a single `Region` that is related to this `Scan`."""
+  regionByTerritoryId: Region
+
+  """Reads a single `Platform` that is related to this `Scan`."""
+  platformByPlatformId: Platform
+
+  """Reads a single `Client` that is related to this `Scan`."""
+  clientByClientId: Client
+
+  """An edge for our `Scan`. May be used by Relay 1."""
+  scanEdge(
+    """The method to use when ordering `Scan`."""
+    orderBy: [ScansOrderBy!] = [PRIMARY_KEY_ASC]
+  ): ScansEdge
+}
+
+"""All input for the create `Section` mutation."""
+input CreateSectionInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """The `Section` to be created by this mutation."""
+  section: SectionInput!
+}
+
+"""The output of our create `Section` mutation."""
+type CreateSectionPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `Section` that was created by this mutation."""
+  section: Section
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """Reads a single `Page` that is related to this `Section`."""
+  pageByPageId: Page
+
+  """An edge for our `Section`. May be used by Relay 1."""
+  sectionEdge(
+    """The method to use when ordering `Section`."""
+    orderBy: [SectionsOrderBy!] = [PRIMARY_KEY_ASC]
+  ): SectionsEdge
+}
+
+"""All input for the create `Spot` mutation."""
+input CreateSpotInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """The `Spot` to be created by this mutation."""
+  spot: SpotInput!
+}
+
+"""The output of our create `Spot` mutation."""
+type CreateSpotPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `Spot` that was created by this mutation."""
+  spot: Spot
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """Reads a single `Section` that is related to this `Spot`."""
+  sectionBySectionId: Section
+
+  """An edge for our `Spot`. May be used by Relay 1."""
+  spotEdge(
+    """The method to use when ordering `Spot`."""
+    orderBy: [SpotsOrderBy!] = [PRIMARY_KEY_ASC]
+  ): SpotsEdge
+}
+
+"""All input for the create `SpotStatistic` mutation."""
+input CreateSpotStatisticInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """The `SpotStatistic` to be created by this mutation."""
+  spotStatistic: SpotStatisticInput!
+}
+
+"""The output of our create `SpotStatistic` mutation."""
+type CreateSpotStatisticPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `SpotStatistic` that was created by this mutation."""
+  spotStatistic: SpotStatistic
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """Reads a single `Spot` that is related to this `SpotStatistic`."""
+  spotBySpotId: Spot
+
+  """Reads a single `Page` that is related to this `SpotStatistic`."""
+  pageByPageId: Page
+
+  """Reads a single `Scan` that is related to this `SpotStatistic`."""
+  scanByScanId: Scan
+
+  """Reads a single `Client` that is related to this `SpotStatistic`."""
+  clientByClientId: Client
+
+  """An edge for our `SpotStatistic`. May be used by Relay 1."""
+  spotStatisticEdge(
+    """The method to use when ordering `SpotStatistic`."""
+    orderBy: [SpotStatisticsOrderBy!] = [PRIMARY_KEY_ASC]
+  ): SpotStatisticsEdge
+}
+
+"""All input for the create `User` mutation."""
+input CreateUserInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """The `User` to be created by this mutation."""
+  user: UserInput!
+}
+
+"""The output of our create `User` mutation."""
+type CreateUserPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `User` that was created by this mutation."""
+  user: User
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """Reads a single `Client` that is related to this `User`."""
+  clientByClientId: Client
+
+  """An edge for our `User`. May be used by Relay 1."""
+  userEdge(
+    """The method to use when ordering `User`."""
+    orderBy: [UsersOrderBy!] = [PRIMARY_KEY_ASC]
+  ): UsersEdge
+}
+
+"""A location in a connection that can be used for resuming pagination."""
+scalar Cursor
+
+"""
+A point in time as described by the [ISO
+8601](https://en.wikipedia.org/wiki/ISO_8601) standard. May or may not include a timezone.
+"""
+scalar Datetime
+
+"""All input for the `deleteClientById` mutation."""
+input DeleteClientByIdInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  id: UUID!
+}
+
+"""All input for the `deleteClient` mutation."""
+input DeleteClientInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  The globally unique `ID` which will identify a single `Client` to be deleted.
+  """
+  nodeId: ID!
+}
+
+"""The output of our delete `Client` mutation."""
+type DeleteClientPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `Client` that was deleted by this mutation."""
+  client: Client
+  deletedClientId: ID
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """An edge for our `Client`. May be used by Relay 1."""
+  clientEdge(
+    """The method to use when ordering `Client`."""
+    orderBy: [ClientsOrderBy!] = [PRIMARY_KEY_ASC]
+  ): ClientsEdge
+}
+
+"""All input for the `deletePageById` mutation."""
+input DeletePageByIdInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  id: UUID!
+}
+
+"""All input for the `deletePage` mutation."""
+input DeletePageInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  The globally unique `ID` which will identify a single `Page` to be deleted.
+  """
+  nodeId: ID!
+}
+
+"""The output of our delete `Page` mutation."""
+type DeletePagePayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `Page` that was deleted by this mutation."""
+  page: Page
+  deletedPageId: ID
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """Reads a single `Scan` that is related to this `Page`."""
+  scanByScanId: Scan
+
+  """An edge for our `Page`. May be used by Relay 1."""
+  pageEdge(
+    """The method to use when ordering `Page`."""
+    orderBy: [PagesOrderBy!] = [PRIMARY_KEY_ASC]
+  ): PagesEdge
+}
+
+"""All input for the `deletePlatformById` mutation."""
+input DeletePlatformByIdInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  id: UUID!
+}
+
+"""All input for the `deletePlatformByName` mutation."""
+input DeletePlatformByNameInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  name: String!
+}
+
+"""All input for the `deletePlatform` mutation."""
+input DeletePlatformInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  The globally unique `ID` which will identify a single `Platform` to be deleted.
+  """
+  nodeId: ID!
+}
+
+"""The output of our delete `Platform` mutation."""
+type DeletePlatformPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `Platform` that was deleted by this mutation."""
+  platform: Platform
+  deletedPlatformId: ID
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """Reads a single `Region` that is related to this `Platform`."""
+  regionByTerritoryId: Region
+
+  """An edge for our `Platform`. May be used by Relay 1."""
+  platformEdge(
+    """The method to use when ordering `Platform`."""
+    orderBy: [PlatformsOrderBy!] = [PRIMARY_KEY_ASC]
+  ): PlatformsEdge
+}
+
+"""All input for the `deleteRegionById` mutation."""
+input DeleteRegionByIdInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  id: UUID!
+}
+
+"""All input for the `deleteRegionByName` mutation."""
+input DeleteRegionByNameInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  name: String!
+}
+
+"""All input for the `deleteRegion` mutation."""
+input DeleteRegionInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  The globally unique `ID` which will identify a single `Region` to be deleted.
+  """
+  nodeId: ID!
+}
+
+"""The output of our delete `Region` mutation."""
+type DeleteRegionPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `Region` that was deleted by this mutation."""
+  region: Region
+  deletedRegionId: ID
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """An edge for our `Region`. May be used by Relay 1."""
+  regionEdge(
+    """The method to use when ordering `Region`."""
+    orderBy: [RegionsOrderBy!] = [PRIMARY_KEY_ASC]
+  ): RegionsEdge
+}
+
+"""All input for the `deleteScanById` mutation."""
+input DeleteScanByIdInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  id: UUID!
+}
+
+"""All input for the `deleteScan` mutation."""
+input DeleteScanInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  The globally unique `ID` which will identify a single `Scan` to be deleted.
+  """
+  nodeId: ID!
+}
+
+"""The output of our delete `Scan` mutation."""
+type DeleteScanPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `Scan` that was deleted by this mutation."""
+  scan: Scan
+  deletedScanId: ID
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """Reads a single `Region` that is related to this `Scan`."""
+  regionByTerritoryId: Region
+
+  """Reads a single `Platform` that is related to this `Scan`."""
+  platformByPlatformId: Platform
+
+  """Reads a single `Client` that is related to this `Scan`."""
+  clientByClientId: Client
+
+  """An edge for our `Scan`. May be used by Relay 1."""
+  scanEdge(
+    """The method to use when ordering `Scan`."""
+    orderBy: [ScansOrderBy!] = [PRIMARY_KEY_ASC]
+  ): ScansEdge
+}
+
+"""All input for the `deleteSectionById` mutation."""
+input DeleteSectionByIdInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  id: UUID!
+}
+
+"""All input for the `deleteSection` mutation."""
+input DeleteSectionInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  The globally unique `ID` which will identify a single `Section` to be deleted.
+  """
+  nodeId: ID!
+}
+
+"""The output of our delete `Section` mutation."""
+type DeleteSectionPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `Section` that was deleted by this mutation."""
+  section: Section
+  deletedSectionId: ID
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """Reads a single `Page` that is related to this `Section`."""
+  pageByPageId: Page
+
+  """An edge for our `Section`. May be used by Relay 1."""
+  sectionEdge(
+    """The method to use when ordering `Section`."""
+    orderBy: [SectionsOrderBy!] = [PRIMARY_KEY_ASC]
+  ): SectionsEdge
+}
+
+"""All input for the `deleteSpotById` mutation."""
+input DeleteSpotByIdInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  id: UUID!
+}
+
+"""All input for the `deleteSpot` mutation."""
+input DeleteSpotInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  The globally unique `ID` which will identify a single `Spot` to be deleted.
+  """
+  nodeId: ID!
+}
+
+"""The output of our delete `Spot` mutation."""
+type DeleteSpotPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `Spot` that was deleted by this mutation."""
+  spot: Spot
+  deletedSpotId: ID
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """Reads a single `Section` that is related to this `Spot`."""
+  sectionBySectionId: Section
+
+  """An edge for our `Spot`. May be used by Relay 1."""
+  spotEdge(
+    """The method to use when ordering `Spot`."""
+    orderBy: [SpotsOrderBy!] = [PRIMARY_KEY_ASC]
+  ): SpotsEdge
+}
+
+"""All input for the `deleteSpotStatisticById` mutation."""
+input DeleteSpotStatisticByIdInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  id: UUID!
+}
+
+"""All input for the `deleteSpotStatistic` mutation."""
+input DeleteSpotStatisticInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  The globally unique `ID` which will identify a single `SpotStatistic` to be deleted.
+  """
+  nodeId: ID!
+}
+
+"""The output of our delete `SpotStatistic` mutation."""
+type DeleteSpotStatisticPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `SpotStatistic` that was deleted by this mutation."""
+  spotStatistic: SpotStatistic
+  deletedSpotStatisticId: ID
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """Reads a single `Spot` that is related to this `SpotStatistic`."""
+  spotBySpotId: Spot
+
+  """Reads a single `Page` that is related to this `SpotStatistic`."""
+  pageByPageId: Page
+
+  """Reads a single `Scan` that is related to this `SpotStatistic`."""
+  scanByScanId: Scan
+
+  """Reads a single `Client` that is related to this `SpotStatistic`."""
+  clientByClientId: Client
+
+  """An edge for our `SpotStatistic`. May be used by Relay 1."""
+  spotStatisticEdge(
+    """The method to use when ordering `SpotStatistic`."""
+    orderBy: [SpotStatisticsOrderBy!] = [PRIMARY_KEY_ASC]
+  ): SpotStatisticsEdge
+}
+
+"""All input for the `deleteUserById` mutation."""
+input DeleteUserByIdInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  id: UUID!
+}
+
+"""All input for the `deleteUser` mutation."""
+input DeleteUserInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  The globally unique `ID` which will identify a single `User` to be deleted.
+  """
+  nodeId: ID!
+}
+
+"""The output of our delete `User` mutation."""
+type DeleteUserPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `User` that was deleted by this mutation."""
+  user: User
+  deletedUserId: ID
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """Reads a single `Client` that is related to this `User`."""
+  clientByClientId: Client
+
+  """An edge for our `User`. May be used by Relay 1."""
+  userEdge(
+    """The method to use when ordering `User`."""
+    orderBy: [UsersOrderBy!] = [PRIMARY_KEY_ASC]
+  ): UsersEdge
+}
+
+"""All input for the `insertdatatospotstatistics` mutation."""
+input InsertdatatospotstatisticsInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  _scanId__: UUID
+}
+
+"""The output of our `insertdatatospotstatistics` mutation."""
+type InsertdatatospotstatisticsPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+  spotStatistics: [SpotStatistic]
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+}
+
+"""
+A JavaScript object encoded in the JSON format as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
+"""
+scalar JSON
+
+"""
+The root mutation type which contains root level fields which mutate data.
+"""
+type Mutation {
+  """Creates a single `Client`."""
+  createClient(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: CreateClientInput!
+  ): CreateClientPayload
+
+  """Creates a single `Page`."""
+  createPage(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: CreatePageInput!
+  ): CreatePagePayload
+
+  """Creates a single `Platform`."""
+  createPlatform(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: CreatePlatformInput!
+  ): CreatePlatformPayload
+
+  """Creates a single `Region`."""
+  createRegion(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: CreateRegionInput!
+  ): CreateRegionPayload
+
+  """Creates a single `Scan`."""
+  createScan(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: CreateScanInput!
+  ): CreateScanPayload
+
+  """Creates a single `Section`."""
+  createSection(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: CreateSectionInput!
+  ): CreateSectionPayload
+
+  """Creates a single `SpotStatistic`."""
+  createSpotStatistic(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: CreateSpotStatisticInput!
+  ): CreateSpotStatisticPayload
+
+  """Creates a single `Spot`."""
+  createSpot(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: CreateSpotInput!
+  ): CreateSpotPayload
+
+  """Creates a single `User`."""
+  createUser(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: CreateUserInput!
+  ): CreateUserPayload
+
+  """Updates a single `Client` using its globally unique id and a patch."""
+  updateClient(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: UpdateClientInput!
+  ): UpdateClientPayload
+
+  """Updates a single `Client` using a unique key and a patch."""
+  updateClientById(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: UpdateClientByIdInput!
+  ): UpdateClientPayload
+
+  """Updates a single `Page` using its globally unique id and a patch."""
+  updatePage(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: UpdatePageInput!
+  ): UpdatePagePayload
+
+  """Updates a single `Page` using a unique key and a patch."""
+  updatePageById(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: UpdatePageByIdInput!
+  ): UpdatePagePayload
+
+  """Updates a single `Platform` using its globally unique id and a patch."""
+  updatePlatform(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: UpdatePlatformInput!
+  ): UpdatePlatformPayload
+
+  """Updates a single `Platform` using a unique key and a patch."""
+  updatePlatformById(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: UpdatePlatformByIdInput!
+  ): UpdatePlatformPayload
+
+  """Updates a single `Platform` using a unique key and a patch."""
+  updatePlatformByName(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: UpdatePlatformByNameInput!
+  ): UpdatePlatformPayload
+
+  """Updates a single `Region` using its globally unique id and a patch."""
+  updateRegion(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: UpdateRegionInput!
+  ): UpdateRegionPayload
+
+  """Updates a single `Region` using a unique key and a patch."""
+  updateRegionById(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: UpdateRegionByIdInput!
+  ): UpdateRegionPayload
+
+  """Updates a single `Region` using a unique key and a patch."""
+  updateRegionByName(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: UpdateRegionByNameInput!
+  ): UpdateRegionPayload
+
+  """Updates a single `Scan` using its globally unique id and a patch."""
+  updateScan(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: UpdateScanInput!
+  ): UpdateScanPayload
+
+  """Updates a single `Scan` using a unique key and a patch."""
+  updateScanById(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: UpdateScanByIdInput!
+  ): UpdateScanPayload
+
+  """Updates a single `Section` using its globally unique id and a patch."""
+  updateSection(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: UpdateSectionInput!
+  ): UpdateSectionPayload
+
+  """Updates a single `Section` using a unique key and a patch."""
+  updateSectionById(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: UpdateSectionByIdInput!
+  ): UpdateSectionPayload
+
+  """
+  Updates a single `SpotStatistic` using its globally unique id and a patch.
+  """
+  updateSpotStatistic(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: UpdateSpotStatisticInput!
+  ): UpdateSpotStatisticPayload
+
+  """Updates a single `SpotStatistic` using a unique key and a patch."""
+  updateSpotStatisticById(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: UpdateSpotStatisticByIdInput!
+  ): UpdateSpotStatisticPayload
+
+  """Updates a single `Spot` using its globally unique id and a patch."""
+  updateSpot(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: UpdateSpotInput!
+  ): UpdateSpotPayload
+
+  """Updates a single `Spot` using a unique key and a patch."""
+  updateSpotById(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: UpdateSpotByIdInput!
+  ): UpdateSpotPayload
+
+  """Updates a single `User` using its globally unique id and a patch."""
+  updateUser(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: UpdateUserInput!
+  ): UpdateUserPayload
+
+  """Updates a single `User` using a unique key and a patch."""
+  updateUserById(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: UpdateUserByIdInput!
+  ): UpdateUserPayload
+
+  """Deletes a single `Client` using its globally unique id."""
+  deleteClient(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: DeleteClientInput!
+  ): DeleteClientPayload
+
+  """Deletes a single `Client` using a unique key."""
+  deleteClientById(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: DeleteClientByIdInput!
+  ): DeleteClientPayload
+
+  """Deletes a single `Page` using its globally unique id."""
+  deletePage(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: DeletePageInput!
+  ): DeletePagePayload
+
+  """Deletes a single `Page` using a unique key."""
+  deletePageById(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: DeletePageByIdInput!
+  ): DeletePagePayload
+
+  """Deletes a single `Platform` using its globally unique id."""
+  deletePlatform(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: DeletePlatformInput!
+  ): DeletePlatformPayload
+
+  """Deletes a single `Platform` using a unique key."""
+  deletePlatformById(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: DeletePlatformByIdInput!
+  ): DeletePlatformPayload
+
+  """Deletes a single `Platform` using a unique key."""
+  deletePlatformByName(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: DeletePlatformByNameInput!
+  ): DeletePlatformPayload
+
+  """Deletes a single `Region` using its globally unique id."""
+  deleteRegion(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: DeleteRegionInput!
+  ): DeleteRegionPayload
+
+  """Deletes a single `Region` using a unique key."""
+  deleteRegionById(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: DeleteRegionByIdInput!
+  ): DeleteRegionPayload
+
+  """Deletes a single `Region` using a unique key."""
+  deleteRegionByName(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: DeleteRegionByNameInput!
+  ): DeleteRegionPayload
+
+  """Deletes a single `Scan` using its globally unique id."""
+  deleteScan(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: DeleteScanInput!
+  ): DeleteScanPayload
+
+  """Deletes a single `Scan` using a unique key."""
+  deleteScanById(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: DeleteScanByIdInput!
+  ): DeleteScanPayload
+
+  """Deletes a single `Section` using its globally unique id."""
+  deleteSection(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: DeleteSectionInput!
+  ): DeleteSectionPayload
+
+  """Deletes a single `Section` using a unique key."""
+  deleteSectionById(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: DeleteSectionByIdInput!
+  ): DeleteSectionPayload
+
+  """Deletes a single `SpotStatistic` using its globally unique id."""
+  deleteSpotStatistic(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: DeleteSpotStatisticInput!
+  ): DeleteSpotStatisticPayload
+
+  """Deletes a single `SpotStatistic` using a unique key."""
+  deleteSpotStatisticById(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: DeleteSpotStatisticByIdInput!
+  ): DeleteSpotStatisticPayload
+
+  """Deletes a single `Spot` using its globally unique id."""
+  deleteSpot(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: DeleteSpotInput!
+  ): DeleteSpotPayload
+
+  """Deletes a single `Spot` using a unique key."""
+  deleteSpotById(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: DeleteSpotByIdInput!
+  ): DeleteSpotPayload
+
+  """Deletes a single `User` using its globally unique id."""
+  deleteUser(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: DeleteUserInput!
+  ): DeleteUserPayload
+
+  """Deletes a single `User` using a unique key."""
+  deleteUserById(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: DeleteUserByIdInput!
+  ): DeleteUserPayload
+  insertdatatospotstatistics(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: InsertdatatospotstatisticsInput!
+  ): InsertdatatospotstatisticsPayload
+}
+
+"""An object with a globally unique `ID`."""
+interface Node {
+  """
+  A globally unique identifier. Can be used in various places throughout the system to identify this single value.
+  """
+  nodeId: ID!
+}
+
+type Page implements Node {
+  """
+  A globally unique identifier. Can be used in various places throughout the system to identify this single value.
+  """
+  nodeId: ID!
+  id: UUID!
+  name: String
+  path: String
+  scanId: UUID
+
+  """Reads a single `Scan` that is related to this `Page`."""
+  scanByScanId: Scan
+
+  """Reads and enables pagination through a set of `Section`."""
+  sectionsByPageId(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `Section`."""
+    orderBy: [SectionsOrderBy!] = [PRIMARY_KEY_ASC]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: SectionCondition
+  ): SectionsConnection!
+
+  """Reads and enables pagination through a set of `SpotStatistic`."""
+  spotStatisticsByPageId(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `SpotStatistic`."""
+    orderBy: [SpotStatisticsOrderBy!] = [PRIMARY_KEY_ASC]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: SpotStatisticCondition
+  ): SpotStatisticsConnection!
+}
+
+"""
+A condition to be used against `Page` object types. All fields are tested for equality and combined with a logical ‘and.’
+"""
+input PageCondition {
+  """Checks for equality with the object’s `id` field."""
+  id: UUID
+
+  """Checks for equality with the object’s `name` field."""
+  name: String
+
+  """Checks for equality with the object’s `path` field."""
+  path: String
+
+  """Checks for equality with the object’s `scanId` field."""
+  scanId: UUID
+}
+
+"""Information about pagination in a connection."""
+type PageInfo {
+  """When paginating forwards, are there more items?"""
+  hasNextPage: Boolean!
+
+  """When paginating backwards, are there more items?"""
+  hasPreviousPage: Boolean!
+
+  """When paginating backwards, the cursor to continue."""
+  startCursor: Cursor
+
+  """When paginating forwards, the cursor to continue."""
+  endCursor: Cursor
+}
+
+"""An input for mutations affecting `Page`"""
+input PageInput {
+  id: UUID
+  name: String
+  path: String
+  scanId: UUID
+}
+
+"""Represents an update to a `Page`. Fields that are set will be updated."""
+input PagePatch {
+  id: UUID
+  name: String
+  path: String
+  scanId: UUID
+}
+
+"""A connection to a list of `Page` values."""
+type PagesConnection {
+  """A list of `Page` objects."""
+  nodes: [Page]!
+
+  """
+  A list of edges which contains the `Page` and cursor to aid in pagination.
+  """
+  edges: [PagesEdge!]!
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """The count of *all* `Page` you could get from the connection."""
+  totalCount: Int!
+}
+
+"""A `Page` edge in the connection."""
+type PagesEdge {
+  """A cursor for use in pagination."""
+  cursor: Cursor
+
+  """The `Page` at the end of the edge."""
+  node: Page
+}
+
+"""Methods to use when ordering `Page`."""
+enum PagesOrderBy {
+  NATURAL
+  ID_ASC
+  ID_DESC
+  NAME_ASC
+  NAME_DESC
+  PATH_ASC
+  PATH_DESC
+  SCAN_ID_ASC
+  SCAN_ID_DESC
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+}
+
+type Platform implements Node {
+  """
+  A globally unique identifier. Can be used in various places throughout the system to identify this single value.
+  """
+  nodeId: ID!
+  id: UUID!
+  territoryId: UUID
+  name: String
+  createdAt: Datetime!
+  updatedAt: Datetime
+  logoFileName: String
+  logoContentType: String
+  logoFileSize: Int
+  logoUpdatedAt: Datetime
+  faviconFileName: String
+  faviconContentType: String
+  faviconFileSize: String
+  faviconUpdatedAt: String
+  code: String
+  currency: String
+  hasUberArtwork: Boolean
+  hasBoxsets: Boolean
+  generateActions: Boolean
+  variants: JSON
+
+  """Reads a single `Region` that is related to this `Platform`."""
+  regionByTerritoryId: Region
+
+  """Reads and enables pagination through a set of `Scan`."""
+  scansByPlatformId(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `Scan`."""
+    orderBy: [ScansOrderBy!] = [PRIMARY_KEY_ASC]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: ScanCondition
+  ): ScansConnection!
+}
+
+"""
+A condition to be used against `Platform` object types. All fields are tested
+for equality and combined with a logical ‘and.’
+"""
+input PlatformCondition {
+  """Checks for equality with the object’s `id` field."""
+  id: UUID
+
+  """Checks for equality with the object’s `territoryId` field."""
+  territoryId: UUID
+
+  """Checks for equality with the object’s `name` field."""
+  name: String
+
+  """Checks for equality with the object’s `createdAt` field."""
+  createdAt: Datetime
+
+  """Checks for equality with the object’s `updatedAt` field."""
+  updatedAt: Datetime
+
+  """Checks for equality with the object’s `logoFileName` field."""
+  logoFileName: String
+
+  """Checks for equality with the object’s `logoContentType` field."""
+  logoContentType: String
+
+  """Checks for equality with the object’s `logoFileSize` field."""
+  logoFileSize: Int
+
+  """Checks for equality with the object’s `logoUpdatedAt` field."""
+  logoUpdatedAt: Datetime
+
+  """Checks for equality with the object’s `faviconFileName` field."""
+  faviconFileName: String
+
+  """Checks for equality with the object’s `faviconContentType` field."""
+  faviconContentType: String
+
+  """Checks for equality with the object’s `faviconFileSize` field."""
+  faviconFileSize: String
+
+  """Checks for equality with the object’s `faviconUpdatedAt` field."""
+  faviconUpdatedAt: String
+
+  """Checks for equality with the object’s `code` field."""
+  code: String
+
+  """Checks for equality with the object’s `currency` field."""
+  currency: String
+
+  """Checks for equality with the object’s `hasUberArtwork` field."""
+  hasUberArtwork: Boolean
+
+  """Checks for equality with the object’s `hasBoxsets` field."""
+  hasBoxsets: Boolean
+
+  """Checks for equality with the object’s `generateActions` field."""
+  generateActions: Boolean
+
+  """Checks for equality with the object’s `variants` field."""
+  variants: JSON
+}
+
+"""An input for mutations affecting `Platform`"""
+input PlatformInput {
+  id: UUID
+  territoryId: UUID
+  name: String
+  createdAt: Datetime
+  updatedAt: Datetime
+  logoFileName: String
+  logoContentType: String
+  logoFileSize: Int
+  logoUpdatedAt: Datetime
+  faviconFileName: String
+  faviconContentType: String
+  faviconFileSize: String
+  faviconUpdatedAt: String
+  code: String
+  currency: String
+  hasUberArtwork: Boolean
+  hasBoxsets: Boolean
+  generateActions: Boolean
+  variants: JSON
+}
+
+"""
+Represents an update to a `Platform`. Fields that are set will be updated.
+"""
+input PlatformPatch {
+  id: UUID
+  territoryId: UUID
+  name: String
+  createdAt: Datetime
+  updatedAt: Datetime
+  logoFileName: String
+  logoContentType: String
+  logoFileSize: Int
+  logoUpdatedAt: Datetime
+  faviconFileName: String
+  faviconContentType: String
+  faviconFileSize: String
+  faviconUpdatedAt: String
+  code: String
+  currency: String
+  hasUberArtwork: Boolean
+  hasBoxsets: Boolean
+  generateActions: Boolean
+  variants: JSON
+}
+
+"""A connection to a list of `Platform` values."""
+type PlatformsConnection {
+  """A list of `Platform` objects."""
+  nodes: [Platform]!
+
+  """
+  A list of edges which contains the `Platform` and cursor to aid in pagination.
+  """
+  edges: [PlatformsEdge!]!
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """The count of *all* `Platform` you could get from the connection."""
+  totalCount: Int!
+}
+
+"""A `Platform` edge in the connection."""
+type PlatformsEdge {
+  """A cursor for use in pagination."""
+  cursor: Cursor
+
+  """The `Platform` at the end of the edge."""
+  node: Platform
+}
+
+"""Methods to use when ordering `Platform`."""
+enum PlatformsOrderBy {
+  NATURAL
+  ID_ASC
+  ID_DESC
+  TERRITORY_ID_ASC
+  TERRITORY_ID_DESC
+  NAME_ASC
+  NAME_DESC
+  CREATED_AT_ASC
+  CREATED_AT_DESC
+  UPDATED_AT_ASC
+  UPDATED_AT_DESC
+  LOGO_FILE_NAME_ASC
+  LOGO_FILE_NAME_DESC
+  LOGO_CONTENT_TYPE_ASC
+  LOGO_CONTENT_TYPE_DESC
+  LOGO_FILE_SIZE_ASC
+  LOGO_FILE_SIZE_DESC
+  LOGO_UPDATED_AT_ASC
+  LOGO_UPDATED_AT_DESC
+  FAVICON_FILE_NAME_ASC
+  FAVICON_FILE_NAME_DESC
+  FAVICON_CONTENT_TYPE_ASC
+  FAVICON_CONTENT_TYPE_DESC
+  FAVICON_FILE_SIZE_ASC
+  FAVICON_FILE_SIZE_DESC
+  FAVICON_UPDATED_AT_ASC
+  FAVICON_UPDATED_AT_DESC
+  CODE_ASC
+  CODE_DESC
+  CURRENCY_ASC
+  CURRENCY_DESC
+  HAS_UBER_ARTWORK_ASC
+  HAS_UBER_ARTWORK_DESC
+  HAS_BOXSETS_ASC
+  HAS_BOXSETS_DESC
+  GENERATE_ACTIONS_ASC
+  GENERATE_ACTIONS_DESC
+  VARIANTS_ASC
+  VARIANTS_DESC
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+}
+
+"""The root query type which gives access points into the data universe."""
+type Query implements Node {
+  """
+  Exposes the root query type nested one level down. This is helpful for Relay 1
+  which can only query top level fields if they are in a particular form.
+  """
+  query: Query!
+
+  """
+  The root query type must be a `Node` to work well with Relay 1 mutations. This just resolves to `query`.
+  """
+  nodeId: ID!
+
+  """Fetches an object given its globally unique `ID`."""
+  node(
+    """The globally unique `ID`."""
+    nodeId: ID!
+  ): Node
+
+  """Reads and enables pagination through a set of `Client`."""
+  allClients(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `Client`."""
+    orderBy: [ClientsOrderBy!] = [PRIMARY_KEY_ASC]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: ClientCondition
+  ): ClientsConnection
+
+  """Reads and enables pagination through a set of `Page`."""
+  allPages(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `Page`."""
+    orderBy: [PagesOrderBy!] = [PRIMARY_KEY_ASC]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: PageCondition
+  ): PagesConnection
+
+  """Reads and enables pagination through a set of `Platform`."""
+  allPlatforms(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `Platform`."""
+    orderBy: [PlatformsOrderBy!] = [PRIMARY_KEY_ASC]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: PlatformCondition
+  ): PlatformsConnection
+
+  """Reads and enables pagination through a set of `Region`."""
+  allRegions(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `Region`."""
+    orderBy: [RegionsOrderBy!] = [PRIMARY_KEY_ASC]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: RegionCondition
+  ): RegionsConnection
+
+  """Reads and enables pagination through a set of `Scan`."""
+  allScans(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `Scan`."""
+    orderBy: [ScansOrderBy!] = [PRIMARY_KEY_ASC]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: ScanCondition
+  ): ScansConnection
+
+  """Reads and enables pagination through a set of `Section`."""
+  allSections(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `Section`."""
+    orderBy: [SectionsOrderBy!] = [PRIMARY_KEY_ASC]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: SectionCondition
+  ): SectionsConnection
+
+  """Reads and enables pagination through a set of `SpotStatistic`."""
+  allSpotStatistics(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `SpotStatistic`."""
+    orderBy: [SpotStatisticsOrderBy!] = [PRIMARY_KEY_ASC]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: SpotStatisticCondition
+  ): SpotStatisticsConnection
+
+  """Reads and enables pagination through a set of `Spot`."""
+  allSpots(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `Spot`."""
+    orderBy: [SpotsOrderBy!] = [PRIMARY_KEY_ASC]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: SpotCondition
+  ): SpotsConnection
+
+  """Reads and enables pagination through a set of `User`."""
+  allUsers(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `User`."""
+    orderBy: [UsersOrderBy!] = [PRIMARY_KEY_ASC]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: UserCondition
+  ): UsersConnection
+  clientById(id: UUID!): Client
+  pageById(id: UUID!): Page
+  platformById(id: UUID!): Platform
+  platformByName(name: String!): Platform
+  regionById(id: UUID!): Region
+  regionByName(name: String!): Region
+  scanById(id: UUID!): Scan
+  sectionById(id: UUID!): Section
+  spotStatisticById(id: UUID!): SpotStatistic
+  spotById(id: UUID!): Spot
+  userById(id: UUID!): User
+
+  """Reads a single `Client` using its globally unique `ID`."""
+  client(
+    """The globally unique `ID` to be used in selecting a single `Client`."""
+    nodeId: ID!
+  ): Client
+
+  """Reads a single `Page` using its globally unique `ID`."""
+  page(
+    """The globally unique `ID` to be used in selecting a single `Page`."""
+    nodeId: ID!
+  ): Page
+
+  """Reads a single `Platform` using its globally unique `ID`."""
+  platform(
+    """The globally unique `ID` to be used in selecting a single `Platform`."""
+    nodeId: ID!
+  ): Platform
+
+  """Reads a single `Region` using its globally unique `ID`."""
+  region(
+    """The globally unique `ID` to be used in selecting a single `Region`."""
+    nodeId: ID!
+  ): Region
+
+  """Reads a single `Scan` using its globally unique `ID`."""
+  scan(
+    """The globally unique `ID` to be used in selecting a single `Scan`."""
+    nodeId: ID!
+  ): Scan
+
+  """Reads a single `Section` using its globally unique `ID`."""
+  section(
+    """The globally unique `ID` to be used in selecting a single `Section`."""
+    nodeId: ID!
+  ): Section
+
+  """Reads a single `SpotStatistic` using its globally unique `ID`."""
+  spotStatistic(
+    """
+    The globally unique `ID` to be used in selecting a single `SpotStatistic`.
+    """
+    nodeId: ID!
+  ): SpotStatistic
+
+  """Reads a single `Spot` using its globally unique `ID`."""
+  spot(
+    """The globally unique `ID` to be used in selecting a single `Spot`."""
+    nodeId: ID!
+  ): Spot
+
+  """Reads a single `User` using its globally unique `ID`."""
+  user(
+    """The globally unique `ID` to be used in selecting a single `User`."""
+    nodeId: ID!
+  ): User
+}
+
+type Region implements Node {
+  """
+  A globally unique identifier. Can be used in various places throughout the system to identify this single value.
+  """
+  nodeId: ID!
+  id: UUID!
+  name: String
+  createdAt: Datetime!
+  updatedAt: Datetime
+  isoCode: String
+  currency: String
+  flagFileName: String
+  flagContentType: String
+  flagFileSize: Int
+  flagUpdatedAt: Datetime
+  locale: String
+  sortKey: Int
+
+  """Reads and enables pagination through a set of `Platform`."""
+  platformsByTerritoryId(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `Platform`."""
+    orderBy: [PlatformsOrderBy!] = [PRIMARY_KEY_ASC]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: PlatformCondition
+  ): PlatformsConnection!
+
+  """Reads and enables pagination through a set of `Scan`."""
+  scansByTerritoryId(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `Scan`."""
+    orderBy: [ScansOrderBy!] = [PRIMARY_KEY_ASC]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: ScanCondition
+  ): ScansConnection!
+}
+
+"""
+A condition to be used against `Region` object types. All fields are tested for equality and combined with a logical ‘and.’
+"""
+input RegionCondition {
+  """Checks for equality with the object’s `id` field."""
+  id: UUID
+
+  """Checks for equality with the object’s `name` field."""
+  name: String
+
+  """Checks for equality with the object’s `createdAt` field."""
+  createdAt: Datetime
+
+  """Checks for equality with the object’s `updatedAt` field."""
+  updatedAt: Datetime
+
+  """Checks for equality with the object’s `isoCode` field."""
+  isoCode: String
+
+  """Checks for equality with the object’s `currency` field."""
+  currency: String
+
+  """Checks for equality with the object’s `flagFileName` field."""
+  flagFileName: String
+
+  """Checks for equality with the object’s `flagContentType` field."""
+  flagContentType: String
+
+  """Checks for equality with the object’s `flagFileSize` field."""
+  flagFileSize: Int
+
+  """Checks for equality with the object’s `flagUpdatedAt` field."""
+  flagUpdatedAt: Datetime
+
+  """Checks for equality with the object’s `locale` field."""
+  locale: String
+
+  """Checks for equality with the object’s `sortKey` field."""
+  sortKey: Int
+}
+
+"""An input for mutations affecting `Region`"""
+input RegionInput {
+  id: UUID
+  name: String
+  createdAt: Datetime
+  updatedAt: Datetime
+  isoCode: String
+  currency: String
+  flagFileName: String
+  flagContentType: String
+  flagFileSize: Int
+  flagUpdatedAt: Datetime
+  locale: String
+  sortKey: Int
+}
+
+"""
+Represents an update to a `Region`. Fields that are set will be updated.
+"""
+input RegionPatch {
+  id: UUID
+  name: String
+  createdAt: Datetime
+  updatedAt: Datetime
+  isoCode: String
+  currency: String
+  flagFileName: String
+  flagContentType: String
+  flagFileSize: Int
+  flagUpdatedAt: Datetime
+  locale: String
+  sortKey: Int
+}
+
+"""A connection to a list of `Region` values."""
+type RegionsConnection {
+  """A list of `Region` objects."""
+  nodes: [Region]!
+
+  """
+  A list of edges which contains the `Region` and cursor to aid in pagination.
+  """
+  edges: [RegionsEdge!]!
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """The count of *all* `Region` you could get from the connection."""
+  totalCount: Int!
+}
+
+"""A `Region` edge in the connection."""
+type RegionsEdge {
+  """A cursor for use in pagination."""
+  cursor: Cursor
+
+  """The `Region` at the end of the edge."""
+  node: Region
+}
+
+"""Methods to use when ordering `Region`."""
+enum RegionsOrderBy {
+  NATURAL
+  ID_ASC
+  ID_DESC
+  NAME_ASC
+  NAME_DESC
+  CREATED_AT_ASC
+  CREATED_AT_DESC
+  UPDATED_AT_ASC
+  UPDATED_AT_DESC
+  ISO_CODE_ASC
+  ISO_CODE_DESC
+  CURRENCY_ASC
+  CURRENCY_DESC
+  FLAG_FILE_NAME_ASC
+  FLAG_FILE_NAME_DESC
+  FLAG_CONTENT_TYPE_ASC
+  FLAG_CONTENT_TYPE_DESC
+  FLAG_FILE_SIZE_ASC
+  FLAG_FILE_SIZE_DESC
+  FLAG_UPDATED_AT_ASC
+  FLAG_UPDATED_AT_DESC
+  LOCALE_ASC
+  LOCALE_DESC
+  SORT_KEY_ASC
+  SORT_KEY_DESC
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+}
+
+type Scan implements Node {
+  """
+  A globally unique identifier. Can be used in various places throughout the system to identify this single value.
+  """
+  nodeId: ID!
+  id: UUID!
+  territoryId: UUID
+  platformId: UUID
+  createdAt: Datetime!
+  updatedAt: Datetime
+  useBrowser: Boolean
+  sheduledAt: Datetime
+  clientId: UUID
+
+  """Reads a single `Region` that is related to this `Scan`."""
+  regionByTerritoryId: Region
+
+  """Reads a single `Platform` that is related to this `Scan`."""
+  platformByPlatformId: Platform
+
+  """Reads a single `Client` that is related to this `Scan`."""
+  clientByClientId: Client
+
+  """Reads and enables pagination through a set of `Page`."""
+  pagesByScanId(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `Page`."""
+    orderBy: [PagesOrderBy!] = [PRIMARY_KEY_ASC]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: PageCondition
+  ): PagesConnection!
+
+  """Reads and enables pagination through a set of `SpotStatistic`."""
+  spotStatisticsByScanId(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `SpotStatistic`."""
+    orderBy: [SpotStatisticsOrderBy!] = [PRIMARY_KEY_ASC]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: SpotStatisticCondition
+  ): SpotStatisticsConnection!
+}
+
+"""
+A condition to be used against `Scan` object types. All fields are tested for equality and combined with a logical ‘and.’
+"""
+input ScanCondition {
+  """Checks for equality with the object’s `id` field."""
+  id: UUID
+
+  """Checks for equality with the object’s `territoryId` field."""
+  territoryId: UUID
+
+  """Checks for equality with the object’s `platformId` field."""
+  platformId: UUID
+
+  """Checks for equality with the object’s `createdAt` field."""
+  createdAt: Datetime
+
+  """Checks for equality with the object’s `updatedAt` field."""
+  updatedAt: Datetime
+
+  """Checks for equality with the object’s `useBrowser` field."""
+  useBrowser: Boolean
+
+  """Checks for equality with the object’s `sheduledAt` field."""
+  sheduledAt: Datetime
+
+  """Checks for equality with the object’s `clientId` field."""
+  clientId: UUID
+}
+
+"""An input for mutations affecting `Scan`"""
+input ScanInput {
+  id: UUID
+  territoryId: UUID
+  platformId: UUID
+  createdAt: Datetime
+  updatedAt: Datetime
+  useBrowser: Boolean
+  sheduledAt: Datetime
+  clientId: UUID
+}
+
+"""Represents an update to a `Scan`. Fields that are set will be updated."""
+input ScanPatch {
+  id: UUID
+  territoryId: UUID
+  platformId: UUID
+  createdAt: Datetime
+  updatedAt: Datetime
+  useBrowser: Boolean
+  sheduledAt: Datetime
+  clientId: UUID
+}
+
+"""A connection to a list of `Scan` values."""
+type ScansConnection {
+  """A list of `Scan` objects."""
+  nodes: [Scan]!
+
+  """
+  A list of edges which contains the `Scan` and cursor to aid in pagination.
+  """
+  edges: [ScansEdge!]!
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """The count of *all* `Scan` you could get from the connection."""
+  totalCount: Int!
+}
+
+"""A `Scan` edge in the connection."""
+type ScansEdge {
+  """A cursor for use in pagination."""
+  cursor: Cursor
+
+  """The `Scan` at the end of the edge."""
+  node: Scan
+}
+
+"""Methods to use when ordering `Scan`."""
+enum ScansOrderBy {
+  NATURAL
+  ID_ASC
+  ID_DESC
+  TERRITORY_ID_ASC
+  TERRITORY_ID_DESC
+  PLATFORM_ID_ASC
+  PLATFORM_ID_DESC
+  CREATED_AT_ASC
+  CREATED_AT_DESC
+  UPDATED_AT_ASC
+  UPDATED_AT_DESC
+  USE_BROWSER_ASC
+  USE_BROWSER_DESC
+  SHEDULED_AT_ASC
+  SHEDULED_AT_DESC
+  CLIENT_ID_ASC
+  CLIENT_ID_DESC
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+}
+
+type Section implements Node {
+  """
+  A globally unique identifier. Can be used in various places throughout the system to identify this single value.
+  """
+  nodeId: ID!
+  id: UUID!
+  name: String
+  row: Int
+  pageId: UUID
+
+  """Reads a single `Page` that is related to this `Section`."""
+  pageByPageId: Page
+
+  """Reads and enables pagination through a set of `Spot`."""
+  spotsBySectionId(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `Spot`."""
+    orderBy: [SpotsOrderBy!] = [PRIMARY_KEY_ASC]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: SpotCondition
+  ): SpotsConnection!
+}
+
+"""
+A condition to be used against `Section` object types. All fields are tested for equality and combined with a logical ‘and.’
+"""
+input SectionCondition {
+  """Checks for equality with the object’s `id` field."""
+  id: UUID
+
+  """Checks for equality with the object’s `name` field."""
+  name: String
+
+  """Checks for equality with the object’s `row` field."""
+  row: Int
+
+  """Checks for equality with the object’s `pageId` field."""
+  pageId: UUID
+}
+
+"""An input for mutations affecting `Section`"""
+input SectionInput {
+  id: UUID
+  name: String
+  row: Int
+  pageId: UUID
+}
+
+"""
+Represents an update to a `Section`. Fields that are set will be updated.
+"""
+input SectionPatch {
+  id: UUID
+  name: String
+  row: Int
+  pageId: UUID
+}
+
+"""A connection to a list of `Section` values."""
+type SectionsConnection {
+  """A list of `Section` objects."""
+  nodes: [Section]!
+
+  """
+  A list of edges which contains the `Section` and cursor to aid in pagination.
+  """
+  edges: [SectionsEdge!]!
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """The count of *all* `Section` you could get from the connection."""
+  totalCount: Int!
+}
+
+"""A `Section` edge in the connection."""
+type SectionsEdge {
+  """A cursor for use in pagination."""
+  cursor: Cursor
+
+  """The `Section` at the end of the edge."""
+  node: Section
+}
+
+"""Methods to use when ordering `Section`."""
+enum SectionsOrderBy {
+  NATURAL
+  ID_ASC
+  ID_DESC
+  NAME_ASC
+  NAME_DESC
+  ROW_ASC
+  ROW_DESC
+  PAGE_ID_ASC
+  PAGE_ID_DESC
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+}
+
+type Spot implements Node {
+  """
+  A globally unique identifier. Can be used in various places throughout the system to identify this single value.
+  """
+  nodeId: ID!
+  id: UUID!
+  name: String
+  columnPosition: Int
+  type: String
+  appTitle: String
+  imageUrl: String
+  sectionId: UUID
+
+  """Reads a single `Section` that is related to this `Spot`."""
+  sectionBySectionId: Section
+
+  """Reads and enables pagination through a set of `SpotStatistic`."""
+  spotStatisticsBySpotId(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `SpotStatistic`."""
+    orderBy: [SpotStatisticsOrderBy!] = [PRIMARY_KEY_ASC]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: SpotStatisticCondition
+  ): SpotStatisticsConnection!
+}
+
+"""
+A condition to be used against `Spot` object types. All fields are tested for equality and combined with a logical ‘and.’
+"""
+input SpotCondition {
+  """Checks for equality with the object’s `id` field."""
+  id: UUID
+
+  """Checks for equality with the object’s `name` field."""
+  name: String
+
+  """Checks for equality with the object’s `columnPosition` field."""
+  columnPosition: Int
+
+  """Checks for equality with the object’s `type` field."""
+  type: String
+
+  """Checks for equality with the object’s `appTitle` field."""
+  appTitle: String
+
+  """Checks for equality with the object’s `imageUrl` field."""
+  imageUrl: String
+
+  """Checks for equality with the object’s `sectionId` field."""
+  sectionId: UUID
+}
+
+"""An input for mutations affecting `Spot`"""
+input SpotInput {
+  id: UUID
+  name: String
+  columnPosition: Int
+  type: String
+  appTitle: String
+  imageUrl: String
+  sectionId: UUID
+}
+
+"""Represents an update to a `Spot`. Fields that are set will be updated."""
+input SpotPatch {
+  id: UUID
+  name: String
+  columnPosition: Int
+  type: String
+  appTitle: String
+  imageUrl: String
+  sectionId: UUID
+}
+
+"""A connection to a list of `Spot` values."""
+type SpotsConnection {
+  """A list of `Spot` objects."""
+  nodes: [Spot]!
+
+  """
+  A list of edges which contains the `Spot` and cursor to aid in pagination.
+  """
+  edges: [SpotsEdge!]!
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """The count of *all* `Spot` you could get from the connection."""
+  totalCount: Int!
+}
+
+"""A `Spot` edge in the connection."""
+type SpotsEdge {
+  """A cursor for use in pagination."""
+  cursor: Cursor
+
+  """The `Spot` at the end of the edge."""
+  node: Spot
+}
+
+"""Methods to use when ordering `Spot`."""
+enum SpotsOrderBy {
+  NATURAL
+  ID_ASC
+  ID_DESC
+  NAME_ASC
+  NAME_DESC
+  COLUMN_POSITION_ASC
+  COLUMN_POSITION_DESC
+  TYPE_ASC
+  TYPE_DESC
+  APP_TITLE_ASC
+  APP_TITLE_DESC
+  IMAGE_URL_ASC
+  IMAGE_URL_DESC
+  SECTION_ID_ASC
+  SECTION_ID_DESC
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+}
+
+type SpotStatistic implements Node {
+  """
+  A globally unique identifier. Can be used in various places throughout the system to identify this single value.
+  """
+  nodeId: ID!
+  id: UUID!
+  platformName: String
+  isoCode: String
+  spotType: String
+  spotPosition: Int
+  pageName: String
+  pageDepth: Int
+  totalSpotsOnPage: Int
+  pageSharePercentage: String
+  sectionName: String
+  sectionPosition: Int
+  totalSpotsOnSection: Int
+  sectionSharePercentage: String
+  spotId: UUID
+  platformTitleId: String
+  pageId: UUID
+  titleName: String
+  titleType: String
+  scanDate: String
+  studioId: String
+  scanId: UUID
+  clientId: UUID
+
+  """Reads a single `Spot` that is related to this `SpotStatistic`."""
+  spotBySpotId: Spot
+
+  """Reads a single `Page` that is related to this `SpotStatistic`."""
+  pageByPageId: Page
+
+  """Reads a single `Scan` that is related to this `SpotStatistic`."""
+  scanByScanId: Scan
+
+  """Reads a single `Client` that is related to this `SpotStatistic`."""
+  clientByClientId: Client
+}
+
+"""
+A condition to be used against `SpotStatistic` object types. All fields are
+tested for equality and combined with a logical ‘and.’
+"""
+input SpotStatisticCondition {
+  """Checks for equality with the object’s `id` field."""
+  id: UUID
+
+  """Checks for equality with the object’s `platformName` field."""
+  platformName: String
+
+  """Checks for equality with the object’s `isoCode` field."""
+  isoCode: String
+
+  """Checks for equality with the object’s `spotType` field."""
+  spotType: String
+
+  """Checks for equality with the object’s `spotPosition` field."""
+  spotPosition: Int
+
+  """Checks for equality with the object’s `pageName` field."""
+  pageName: String
+
+  """Checks for equality with the object’s `pageDepth` field."""
+  pageDepth: Int
+
+  """Checks for equality with the object’s `totalSpotsOnPage` field."""
+  totalSpotsOnPage: Int
+
+  """Checks for equality with the object’s `pageSharePercentage` field."""
+  pageSharePercentage: String
+
+  """Checks for equality with the object’s `sectionName` field."""
+  sectionName: String
+
+  """Checks for equality with the object’s `sectionPosition` field."""
+  sectionPosition: Int
+
+  """Checks for equality with the object’s `totalSpotsOnSection` field."""
+  totalSpotsOnSection: Int
+
+  """Checks for equality with the object’s `sectionSharePercentage` field."""
+  sectionSharePercentage: String
+
+  """Checks for equality with the object’s `spotId` field."""
+  spotId: UUID
+
+  """Checks for equality with the object’s `platformTitleId` field."""
+  platformTitleId: String
+
+  """Checks for equality with the object’s `pageId` field."""
+  pageId: UUID
+
+  """Checks for equality with the object’s `titleName` field."""
+  titleName: String
+
+  """Checks for equality with the object’s `titleType` field."""
+  titleType: String
+
+  """Checks for equality with the object’s `scanDate` field."""
+  scanDate: String
+
+  """Checks for equality with the object’s `studioId` field."""
+  studioId: String
+
+  """Checks for equality with the object’s `scanId` field."""
+  scanId: UUID
+
+  """Checks for equality with the object’s `clientId` field."""
+  clientId: UUID
+}
+
+"""An input for mutations affecting `SpotStatistic`"""
+input SpotStatisticInput {
+  id: UUID
+  platformName: String
+  isoCode: String
+  spotType: String
+  spotPosition: Int
+  pageName: String
+  pageDepth: Int
+  totalSpotsOnPage: Int
+  pageSharePercentage: String
+  sectionName: String
+  sectionPosition: Int
+  totalSpotsOnSection: Int
+  sectionSharePercentage: String
+  spotId: UUID
+  platformTitleId: String
+  pageId: UUID
+  titleName: String
+  titleType: String
+  scanDate: String
+  studioId: String
+  scanId: UUID
+  clientId: UUID
+}
+
+"""
+Represents an update to a `SpotStatistic`. Fields that are set will be updated.
+"""
+input SpotStatisticPatch {
+  id: UUID
+  platformName: String
+  isoCode: String
+  spotType: String
+  spotPosition: Int
+  pageName: String
+  pageDepth: Int
+  totalSpotsOnPage: Int
+  pageSharePercentage: String
+  sectionName: String
+  sectionPosition: Int
+  totalSpotsOnSection: Int
+  sectionSharePercentage: String
+  spotId: UUID
+  platformTitleId: String
+  pageId: UUID
+  titleName: String
+  titleType: String
+  scanDate: String
+  studioId: String
+  scanId: UUID
+  clientId: UUID
+}
+
+"""A connection to a list of `SpotStatistic` values."""
+type SpotStatisticsConnection {
+  """A list of `SpotStatistic` objects."""
+  nodes: [SpotStatistic]!
+
+  """
+  A list of edges which contains the `SpotStatistic` and cursor to aid in pagination.
+  """
+  edges: [SpotStatisticsEdge!]!
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """The count of *all* `SpotStatistic` you could get from the connection."""
+  totalCount: Int!
+}
+
+"""A `SpotStatistic` edge in the connection."""
+type SpotStatisticsEdge {
+  """A cursor for use in pagination."""
+  cursor: Cursor
+
+  """The `SpotStatistic` at the end of the edge."""
+  node: SpotStatistic
+}
+
+"""Methods to use when ordering `SpotStatistic`."""
+enum SpotStatisticsOrderBy {
+  NATURAL
+  ID_ASC
+  ID_DESC
+  PLATFORM_NAME_ASC
+  PLATFORM_NAME_DESC
+  ISO_CODE_ASC
+  ISO_CODE_DESC
+  SPOT_TYPE_ASC
+  SPOT_TYPE_DESC
+  SPOT_POSITION_ASC
+  SPOT_POSITION_DESC
+  PAGE_NAME_ASC
+  PAGE_NAME_DESC
+  PAGE_DEPTH_ASC
+  PAGE_DEPTH_DESC
+  TOTAL_SPOTS_ON_PAGE_ASC
+  TOTAL_SPOTS_ON_PAGE_DESC
+  PAGE_SHARE_PERCENTAGE_ASC
+  PAGE_SHARE_PERCENTAGE_DESC
+  SECTION_NAME_ASC
+  SECTION_NAME_DESC
+  SECTION_POSITION_ASC
+  SECTION_POSITION_DESC
+  TOTAL_SPOTS_ON_SECTION_ASC
+  TOTAL_SPOTS_ON_SECTION_DESC
+  SECTION_SHARE_PERCENTAGE_ASC
+  SECTION_SHARE_PERCENTAGE_DESC
+  SPOT_ID_ASC
+  SPOT_ID_DESC
+  PLATFORM_TITLE_ID_ASC
+  PLATFORM_TITLE_ID_DESC
+  PAGE_ID_ASC
+  PAGE_ID_DESC
+  TITLE_NAME_ASC
+  TITLE_NAME_DESC
+  TITLE_TYPE_ASC
+  TITLE_TYPE_DESC
+  SCAN_DATE_ASC
+  SCAN_DATE_DESC
+  STUDIO_ID_ASC
+  STUDIO_ID_DESC
+  SCAN_ID_ASC
+  SCAN_ID_DESC
+  CLIENT_ID_ASC
+  CLIENT_ID_DESC
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+}
+
+"""All input for the `updateClientById` mutation."""
+input UpdateClientByIdInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  An object where the defined keys will be set on the `Client` being updated.
+  """
+  clientPatch: ClientPatch!
+  id: UUID!
+}
+
+"""All input for the `updateClient` mutation."""
+input UpdateClientInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  The globally unique `ID` which will identify a single `Client` to be updated.
+  """
+  nodeId: ID!
+
+  """
+  An object where the defined keys will be set on the `Client` being updated.
+  """
+  clientPatch: ClientPatch!
+}
+
+"""The output of our update `Client` mutation."""
+type UpdateClientPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `Client` that was updated by this mutation."""
+  client: Client
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """An edge for our `Client`. May be used by Relay 1."""
+  clientEdge(
+    """The method to use when ordering `Client`."""
+    orderBy: [ClientsOrderBy!] = [PRIMARY_KEY_ASC]
+  ): ClientsEdge
+}
+
+"""All input for the `updatePageById` mutation."""
+input UpdatePageByIdInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  An object where the defined keys will be set on the `Page` being updated.
+  """
+  pagePatch: PagePatch!
+  id: UUID!
+}
+
+"""All input for the `updatePage` mutation."""
+input UpdatePageInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  The globally unique `ID` which will identify a single `Page` to be updated.
+  """
+  nodeId: ID!
+
+  """
+  An object where the defined keys will be set on the `Page` being updated.
+  """
+  pagePatch: PagePatch!
+}
+
+"""The output of our update `Page` mutation."""
+type UpdatePagePayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `Page` that was updated by this mutation."""
+  page: Page
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """Reads a single `Scan` that is related to this `Page`."""
+  scanByScanId: Scan
+
+  """An edge for our `Page`. May be used by Relay 1."""
+  pageEdge(
+    """The method to use when ordering `Page`."""
+    orderBy: [PagesOrderBy!] = [PRIMARY_KEY_ASC]
+  ): PagesEdge
+}
+
+"""All input for the `updatePlatformById` mutation."""
+input UpdatePlatformByIdInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  An object where the defined keys will be set on the `Platform` being updated.
+  """
+  platformPatch: PlatformPatch!
+  id: UUID!
+}
+
+"""All input for the `updatePlatformByName` mutation."""
+input UpdatePlatformByNameInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  An object where the defined keys will be set on the `Platform` being updated.
+  """
+  platformPatch: PlatformPatch!
+  name: String!
+}
+
+"""All input for the `updatePlatform` mutation."""
+input UpdatePlatformInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  The globally unique `ID` which will identify a single `Platform` to be updated.
+  """
+  nodeId: ID!
+
+  """
+  An object where the defined keys will be set on the `Platform` being updated.
+  """
+  platformPatch: PlatformPatch!
+}
+
+"""The output of our update `Platform` mutation."""
+type UpdatePlatformPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `Platform` that was updated by this mutation."""
+  platform: Platform
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """Reads a single `Region` that is related to this `Platform`."""
+  regionByTerritoryId: Region
+
+  """An edge for our `Platform`. May be used by Relay 1."""
+  platformEdge(
+    """The method to use when ordering `Platform`."""
+    orderBy: [PlatformsOrderBy!] = [PRIMARY_KEY_ASC]
+  ): PlatformsEdge
+}
+
+"""All input for the `updateRegionById` mutation."""
+input UpdateRegionByIdInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  An object where the defined keys will be set on the `Region` being updated.
+  """
+  regionPatch: RegionPatch!
+  id: UUID!
+}
+
+"""All input for the `updateRegionByName` mutation."""
+input UpdateRegionByNameInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  An object where the defined keys will be set on the `Region` being updated.
+  """
+  regionPatch: RegionPatch!
+  name: String!
+}
+
+"""All input for the `updateRegion` mutation."""
+input UpdateRegionInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  The globally unique `ID` which will identify a single `Region` to be updated.
+  """
+  nodeId: ID!
+
+  """
+  An object where the defined keys will be set on the `Region` being updated.
+  """
+  regionPatch: RegionPatch!
+}
+
+"""The output of our update `Region` mutation."""
+type UpdateRegionPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `Region` that was updated by this mutation."""
+  region: Region
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """An edge for our `Region`. May be used by Relay 1."""
+  regionEdge(
+    """The method to use when ordering `Region`."""
+    orderBy: [RegionsOrderBy!] = [PRIMARY_KEY_ASC]
+  ): RegionsEdge
+}
+
+"""All input for the `updateScanById` mutation."""
+input UpdateScanByIdInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  An object where the defined keys will be set on the `Scan` being updated.
+  """
+  scanPatch: ScanPatch!
+  id: UUID!
+}
+
+"""All input for the `updateScan` mutation."""
+input UpdateScanInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  The globally unique `ID` which will identify a single `Scan` to be updated.
+  """
+  nodeId: ID!
+
+  """
+  An object where the defined keys will be set on the `Scan` being updated.
+  """
+  scanPatch: ScanPatch!
+}
+
+"""The output of our update `Scan` mutation."""
+type UpdateScanPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `Scan` that was updated by this mutation."""
+  scan: Scan
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """Reads a single `Region` that is related to this `Scan`."""
+  regionByTerritoryId: Region
+
+  """Reads a single `Platform` that is related to this `Scan`."""
+  platformByPlatformId: Platform
+
+  """Reads a single `Client` that is related to this `Scan`."""
+  clientByClientId: Client
+
+  """An edge for our `Scan`. May be used by Relay 1."""
+  scanEdge(
+    """The method to use when ordering `Scan`."""
+    orderBy: [ScansOrderBy!] = [PRIMARY_KEY_ASC]
+  ): ScansEdge
+}
+
+"""All input for the `updateSectionById` mutation."""
+input UpdateSectionByIdInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  An object where the defined keys will be set on the `Section` being updated.
+  """
+  sectionPatch: SectionPatch!
+  id: UUID!
+}
+
+"""All input for the `updateSection` mutation."""
+input UpdateSectionInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  The globally unique `ID` which will identify a single `Section` to be updated.
+  """
+  nodeId: ID!
+
+  """
+  An object where the defined keys will be set on the `Section` being updated.
+  """
+  sectionPatch: SectionPatch!
+}
+
+"""The output of our update `Section` mutation."""
+type UpdateSectionPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `Section` that was updated by this mutation."""
+  section: Section
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """Reads a single `Page` that is related to this `Section`."""
+  pageByPageId: Page
+
+  """An edge for our `Section`. May be used by Relay 1."""
+  sectionEdge(
+    """The method to use when ordering `Section`."""
+    orderBy: [SectionsOrderBy!] = [PRIMARY_KEY_ASC]
+  ): SectionsEdge
+}
+
+"""All input for the `updateSpotById` mutation."""
+input UpdateSpotByIdInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  An object where the defined keys will be set on the `Spot` being updated.
+  """
+  spotPatch: SpotPatch!
+  id: UUID!
+}
+
+"""All input for the `updateSpot` mutation."""
+input UpdateSpotInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  The globally unique `ID` which will identify a single `Spot` to be updated.
+  """
+  nodeId: ID!
+
+  """
+  An object where the defined keys will be set on the `Spot` being updated.
+  """
+  spotPatch: SpotPatch!
+}
+
+"""The output of our update `Spot` mutation."""
+type UpdateSpotPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `Spot` that was updated by this mutation."""
+  spot: Spot
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """Reads a single `Section` that is related to this `Spot`."""
+  sectionBySectionId: Section
+
+  """An edge for our `Spot`. May be used by Relay 1."""
+  spotEdge(
+    """The method to use when ordering `Spot`."""
+    orderBy: [SpotsOrderBy!] = [PRIMARY_KEY_ASC]
+  ): SpotsEdge
+}
+
+"""All input for the `updateSpotStatisticById` mutation."""
+input UpdateSpotStatisticByIdInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  An object where the defined keys will be set on the `SpotStatistic` being updated.
+  """
+  spotStatisticPatch: SpotStatisticPatch!
+  id: UUID!
+}
+
+"""All input for the `updateSpotStatistic` mutation."""
+input UpdateSpotStatisticInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  The globally unique `ID` which will identify a single `SpotStatistic` to be updated.
+  """
+  nodeId: ID!
+
+  """
+  An object where the defined keys will be set on the `SpotStatistic` being updated.
+  """
+  spotStatisticPatch: SpotStatisticPatch!
+}
+
+"""The output of our update `SpotStatistic` mutation."""
+type UpdateSpotStatisticPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `SpotStatistic` that was updated by this mutation."""
+  spotStatistic: SpotStatistic
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """Reads a single `Spot` that is related to this `SpotStatistic`."""
+  spotBySpotId: Spot
+
+  """Reads a single `Page` that is related to this `SpotStatistic`."""
+  pageByPageId: Page
+
+  """Reads a single `Scan` that is related to this `SpotStatistic`."""
+  scanByScanId: Scan
+
+  """Reads a single `Client` that is related to this `SpotStatistic`."""
+  clientByClientId: Client
+
+  """An edge for our `SpotStatistic`. May be used by Relay 1."""
+  spotStatisticEdge(
+    """The method to use when ordering `SpotStatistic`."""
+    orderBy: [SpotStatisticsOrderBy!] = [PRIMARY_KEY_ASC]
+  ): SpotStatisticsEdge
+}
+
+"""All input for the `updateUserById` mutation."""
+input UpdateUserByIdInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  An object where the defined keys will be set on the `User` being updated.
+  """
+  userPatch: UserPatch!
+  id: UUID!
+}
+
+"""All input for the `updateUser` mutation."""
+input UpdateUserInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  The globally unique `ID` which will identify a single `User` to be updated.
+  """
+  nodeId: ID!
+
+  """
+  An object where the defined keys will be set on the `User` being updated.
+  """
+  userPatch: UserPatch!
+}
+
+"""The output of our update `User` mutation."""
+type UpdateUserPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `User` that was updated by this mutation."""
+  user: User
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """Reads a single `Client` that is related to this `User`."""
+  clientByClientId: Client
+
+  """An edge for our `User`. May be used by Relay 1."""
+  userEdge(
+    """The method to use when ordering `User`."""
+    orderBy: [UsersOrderBy!] = [PRIMARY_KEY_ASC]
+  ): UsersEdge
+}
+
+type User implements Node {
+  """
+  A globally unique identifier. Can be used in various places throughout the system to identify this single value.
+  """
+  nodeId: ID!
+  id: UUID!
+  clientId: UUID
+  name: String
+  lastName: String
+  password: String
+  email: String
+
+  """Reads a single `Client` that is related to this `User`."""
+  clientByClientId: Client
+}
+
+"""
+A condition to be used against `User` object types. All fields are tested for equality and combined with a logical ‘and.’
+"""
+input UserCondition {
+  """Checks for equality with the object’s `id` field."""
+  id: UUID
+
+  """Checks for equality with the object’s `clientId` field."""
+  clientId: UUID
+
+  """Checks for equality with the object’s `name` field."""
+  name: String
+
+  """Checks for equality with the object’s `lastName` field."""
+  lastName: String
+
+  """Checks for equality with the object’s `password` field."""
+  password: String
+
+  """Checks for equality with the object’s `email` field."""
+  email: String
+}
+
+"""An input for mutations affecting `User`"""
+input UserInput {
+  id: UUID
+  clientId: UUID
+  name: String
+  lastName: String
+  password: String
+  email: String
+}
+
+"""Represents an update to a `User`. Fields that are set will be updated."""
+input UserPatch {
+  id: UUID
+  clientId: UUID
+  name: String
+  lastName: String
+  password: String
+  email: String
+}
+
+"""A connection to a list of `User` values."""
+type UsersConnection {
+  """A list of `User` objects."""
+  nodes: [User]!
+
+  """
+  A list of edges which contains the `User` and cursor to aid in pagination.
+  """
+  edges: [UsersEdge!]!
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """The count of *all* `User` you could get from the connection."""
+  totalCount: Int!
+}
+
+"""A `User` edge in the connection."""
+type UsersEdge {
+  """A cursor for use in pagination."""
+  cursor: Cursor
+
+  """The `User` at the end of the edge."""
+  node: User
+}
+
+"""Methods to use when ordering `User`."""
+enum UsersOrderBy {
+  NATURAL
+  ID_ASC
+  ID_DESC
+  CLIENT_ID_ASC
+  CLIENT_ID_DESC
+  NAME_ASC
+  NAME_DESC
+  LAST_NAME_ASC
+  LAST_NAME_DESC
+  PASSWORD_ASC
+  PASSWORD_DESC
+  EMAIL_ASC
+  EMAIL_DESC
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+}
+
+"""
+A universally unique identifier as defined by [RFC 4122](https://tools.ietf.org/html/rfc4122).
+"""
+scalar UUID
